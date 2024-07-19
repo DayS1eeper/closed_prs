@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timeline Diagram</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .axis line,
+        .axis path {
+            shape-rendering: crispEdges;
+            stroke: #000;
+            fill: none;
+        }
+
+        .highlight {
+            opacity: 0.3;
+        }
+
+        .period {
+            stroke: steelblue;
+            stroke-width: 8;
+            opacity: 0.7;
+        }
+
+        .period:hover {
+            stroke-width: 10;
+            opacity: 1;
+        }
+
+        .period text {
+            font: 12px sans-serif;
+            text-anchor: middle;
+        }
+
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            width: 150px;
+            height: auto;
+            padding: 5px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 1px solid #ddd;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .diagram-container {
+            margin-bottom: 20px;
+        }
+
+        .highlight-label {
+            font: 12px sans-serif;
+            text-anchor: middle;
+        }
+        details {
+            margin: 1em 0;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>ACME provider prs closed during 30 days periods https://github.com/vancluever/terraform-provider-acme</h2>
+    <details>
+        <summary>[Click to expand] Diagram</summary>
+        <div class="diagram-container" id="diagram1"></div>
+    </details>
+    <table>
+        <tr>
+        <th>from: 2023-06-19</th><th>to: 2023-07-19</th><th>avg:3/median:3</th>
+        <tr>
+        <th>from: 2023-07-19</th><th>to: 2023-08-18</th><th>avg:4/median:4</th>
+        <tr>
+        <th>from: 2023-08-18</th><th>to: 2023-09-17</th><th>avg:17/median:13</th>
+        <tr>
+        <th>from: 2023-09-17</th><th>to: 2023-10-17</th><th>avg:1/median:1</th>
+        <tr>
+        <th>from: 2023-10-17</th><th>to: 2023-11-16</th><th>avg:3/median:3</th>
+        <tr>
+        <th>from: 2023-11-16</th><th>to: 2023-12-16</th><th>avg:1/median:1</th>
+        <tr>
+        <th>from: 2024-01-15</th><th>to: 2024-02-14</th><th>avg:4/median:0</th>
+        <tr>
+        <th>from: 2024-02-14</th><th>to: 2024-03-15</th><th>avg:16/median:16</th>
+        <tr>
+        <th>from: 2024-03-15</th><th>to: 2024-04-14</th><th>avg:1/median:1</th>
+        <tr>
+        <th>from: 2024-04-14</th><th>to: 2024-05-14</th><th>avg:0/median:0</th>
+        <tr>
+        <th>from: 2024-05-14</th><th>to: 2024-06-13</th><th>avg:57/median:50</th>
+        <tr>
+        </table>
+    <h2>AWS provider prs closed during 30 days periods https://github.com/hashicorp/terraform-provider-aws</h2>
+    <details>
+        <summary>[Click to expand] Diagram</summary>
+    <div class="diagram-container" id="diagram2"></div>
+    </details>
+    <table>
+        <tr>
+        <th>from: 2023-06-19</th><th>to: 2023-07-19</th><th>avg:333/median:95</th>
+        <tr>
+        <th>from: 2023-07-19</th><th>to: 2023-08-18</th><th>avg:267/median:66</th>
+        <tr>
+        <th>from: 2023-08-18</th><th>to: 2023-09-17</th><th>avg:381/median:253</th>
+        <tr>
+        <th>from: 2023-09-17</th><th>to: 2023-10-17</th><th>avg:424/median:316</th>
+        <tr>
+        <th>from: 2023-10-17</th><th>to: 2023-11-16</th><th>avg:378/median:137</th>
+        <tr>
+        <th>from: 2023-11-16</th><th>to: 2023-12-16</th><th>avg:398/median:303</th>
+        <tr>
+        <th>from: 2023-12-16</th><th>to: 2024-01-15</th><th>avg:388/median:130</th>
+        <tr>
+        <th>from: 2024-01-15</th><th>to: 2024-02-14</th><th>avg:422/median:215</th>
+        <tr>
+        <th>from: 2024-02-14</th><th>to: 2024-03-15</th><th>avg:480/median:296</th>
+        <tr>
+        <th>from: 2024-03-15</th><th>to: 2024-04-14</th><th>avg:468/median:183</th>
+        <tr>
+        <th>from: 2024-04-14</th><th>to: 2024-05-14</th><th>avg:343/median:63</th>
+        <tr>
+        <th>from: 2024-05-14</th><th>to: 2024-06-13</th><th>avg:461/median:145</th>
+    </table>
+    <h2>GOOGLE provider prs closed during 30 days periods https://github.com/hashicorp/terraform-provider-google</h2>
+    <details>
+        <summary>[Click to expand] Diagram</summary>
+    <div class="diagram-container" id="diagram3"></div>
+    </details>
+    <table>
+        <tr>
+        <th>from: 2023-06-19</th><th>to: 2023-07-19</th><th>avg:169/median:12</th>
+        <tr>
+        <th>from: 2023-07-19</th><th>to: 2023-08-18</th><th>avg:97/median:11</th>
+        <tr>
+        <th>from: 2023-08-18</th><th>to: 2023-09-17</th><th>avg:178/median:62</th>
+        <tr>
+        <th>from: 2023-09-17</th><th>to: 2023-10-17</th><th>avg:300/median:65</th>
+        <tr>
+        <th>from: 2023-10-17</th><th>to: 2023-11-16</th><th>avg:161/median:16</th>
+        <tr>
+        <th>from: 2023-11-16</th><th>to: 2023-12-16</th><th>avg:164/median:22</th>
+        <tr>
+        <th>from: 2023-12-16</th><th>to: 2024-01-15</th><th>avg:159/median:41</th>
+        <tr>
+        <th>from: 2024-01-15</th><th>to: 2024-02-14</th><th>avg:153/median:10</th>
+        <tr>
+        <th>from: 2024-02-14</th><th>to: 2024-03-15</th><th>avg:118/median:17</th>
+        <tr>
+        <th>from: 2024-03-15</th><th>to: 2024-04-14</th><th>avg:301/median:80</th>
+        <tr>
+        <th>from: 2024-04-14</th><th>to: 2024-05-14</th><th>avg:207/median:56</th>
+        <tr>
+        <th>from: 2024-05-14</th><th>to: 2024-06-13</th><th>avg:167/median:43</th>
+        </table>
+    <h2>GITHUB provider prs closed during 30 days periods https://github.com/integrations/terraform-provider-github</h2>
+    <details>
+        <summary>[Click to expand] Diagram</summary>
+    <div class="diagram-container" id="diagram4"></div>
+    </details>
+    <table>
+        <tr>
+        <th>from: 2023-06-19</th><th>to: 2023-07-19</th><th>avg:164/median:23</th>
+        <tr>
+        <th>from: 2023-07-19</th><th>to: 2023-08-18</th><th>avg:488/median:315</th>
+        <tr>
+        <th>from: 2023-08-18</th><th>to: 2023-09-17</th><th>avg:96/median:18</th>
+        <tr>
+        <th>from: 2023-09-17</th><th>to: 2023-10-17</th><th>avg:156/median:13</th>
+        <tr>
+        <th>from: 2023-10-17</th><th>to: 2023-11-16</th><th>avg:275/median:96</th>
+        <tr>
+        <th>from: 2023-11-16</th><th>to: 2023-12-16</th><th>avg:107/median:16</th>
+        <tr>
+        <th>from: 2023-12-16</th><th>to: 2024-01-15</th><th>avg:169/median:35</th>
+        <tr>
+        <th>from: 2024-01-15</th><th>to: 2024-02-14</th><th>avg:225/median:99</th>
+        <tr>
+        <th>from: 2024-02-14</th><th>to: 2024-03-15</th><th>avg:184/median:34</th>
+        <tr>
+        <th>from: 2024-03-15</th><th>to: 2024-04-14</th><th>avg:295/median:280</th>
+        <tr>
+        <th>from: 2024-04-14</th><th>to: 2024-05-14</th><th>avg:1143/median:1075</th>
+        <tr>
+        <th>from: 2024-05-14</th><th>to: 2024-06-13</th><th>avg:901/median:1076</th>
+        </table>
+    <h2>DATADOG provider prs closed during 30 days periods https://github.com/DataDog/terraform-provider-datadog</h2>
+    <details>
+        <summary>[Click to expand] Diagram</summary>
+    <div class="diagram-container" id="diagram5"></div>
+    </details>
+    <table>
+        <tr><th>from: 2023-06-19</th><th>to: 2023-07-19</th><th>avg:4/median:4</th></tr>
+        <tr><th>from: 2023-07-19</th><th>to: 2023-08-18</th><th>avg:2/median:1</th></tr>
+        <tr><th>from: 2023-08-18</th><th>to: 2023-09-17</th><th>avg:43/median:1</th></tr>
+        <tr><th>from: 2023-09-17</th><th>to: 2023-10-17</th><th>avg:62/median:7</th></tr>
+        <tr><th>from: 2023-10-17</th><th>to: 2023-11-16</th><th>avg:14/median:7</th></tr>
+        <tr><th>from: 2023-11-16</th><th>to: 2023-12-16</th><th>avg:116/median:27</th></tr>
+        <tr><th>from: 2023-12-16</th><th>to: 2024-01-15</th><th>avg:15/median:22</th></tr>
+        <tr><th>from: 2024-01-15</th><th>to: 2024-02-14</th><th>avg:18/median:11</th></tr>
+        <tr><th>from: 2024-02-14</th><th>to: 2024-03-15</th><th>avg:143/median:4</th></tr>
+        <tr><th>from: 2024-03-15</th><th>to: 2024-04-14</th><th>avg:20/median:6</th></tr>
+        <tr><th>from: 2024-04-14</th><th>to: 2024-05-14</th><th>avg:80/median:12</th></tr>
+        <tr><th>from: 2024-05-14</th><th>to: 2024-06-13</th><th>avg:30/median:19</th></tr>
+        </table>
+    
+
+
+
+
+        <h2>ACME provider prs closed during 120 days periods https://github.com/vancluever/terraform-provider-acme</h2>
+        <details>
+            <summary>[Click to expand] Diagram</summary>
+            <div class="diagram-container" id="diagram6"></div>
+        </details>
+        <table>
+            <tr><th>from: 2023-06-19</th><th>to: 2023-10-17</th><th>avg:9/median:4</th></tr>
+            <tr><th>from: 2023-10-17</th><th>to: 2024-02-14</th><th>avg:3/median:0</th></tr>
+            <tr><th>from: 2024-02-14</th><th>to: 2024-06-13</th><th>avg:34/median:5</th></tr>
+            </table>
+        <h2>AWS provider prs closed during 120 days periods https://github.com/hashicorp/terraform-provider-aws</h2>
+        <details>
+            <summary>[Click to expand] Diagram</summary>
+        <div class="diagram-container" id="diagram7"></div>
+        </details>
+        <table>
+            <tr><th>from: 2023-06-19</th><th>to: 2023-10-17</th><th>avg:343/median:121</th></tr>
+            <tr><th>from: 2023-10-17</th><th>to: 2024-02-14</th><th>avg:399/median:178</th></tr>
+            <tr><th>from: 2024-02-14</th><th>to: 2024-06-13</th><th>avg:445/median:166</th></tr>
+            </table>
+        <h2>GOOGLE provider prs closed during 120 days periods https://github.com/hashicorp/terraform-provider-google</h2>
+        <details>
+            <summary>[Click to expand] Diagram</summary>
+        <div class="diagram-container" id="diagram8"></div>
+        </details>
+        <table>
+            <tr><th>from: 2023-06-19</th><th>to: 2023-10-17</th><th>avg:204/median:26</th></tr>
+            <tr><th>from: 2023-10-17</th><th>to: 2024-02-14</th><th>avg:159/median:21</th></tr>
+            <tr><th>from: 2024-02-14</th><th>to: 2024-06-13</th><th>avg:199/median:42</th></tr>
+        </table>
+
+        <h2>GITHUB provider prs closed during 120 days periods https://github.com/integrations/terraform-provider-github</h2>
+        <details>
+            <summary>[Click to expand] Diagram</summary>
+        <div class="diagram-container" id="diagram9"></div>
+        </details>
+        <table>
+            <tr><th>from: 2023-06-19</th><th>to: 2023-10-17</th><th>avg:195/median:24</th></tr>
+            <tr><th>from: 2023-10-17</th><th>to: 2024-02-14</th><th>avg:216/median:79</th></tr>
+            <tr><th>from: 2024-02-14</th><th>to: 2024-06-13</th><th>avg:991/median:1009</th></tr>
+        </table>
+        <h2>DATADOG provider prs closed during 120 days periods https://github.com/DataDog/terraform-provider-datadog</h2>
+        <details>
+            <summary>[Click to expand] Diagram</summary>
+        <div class="diagram-container" id="diagram10"></div>
+        </details>
+        <table>
+            <tr><th>from: 2023-06-19</th><th>to: 2023-10-17</th><th>avg:27/median:3</th></tr>
+            <tr><th>from: 2023-10-17</th><th>to: 2024-02-14</th><th>avg:49/median:11</th></tr>
+            <tr><th>from: 2024-02-14</th><th>to: 2024-06-13</th><th>avg:84/median:7</th></tr>
+            </table>
+
+    <div class="tooltip"></div>
+    <script>
+        // Load data from external JSON file
+        
+        function drawTimeline(data, containerId) {
+            const container = d3.select(`#${containerId}`);
+
+            // Parse the date strings into JavaScript Date objects
+            const numPeriods = data.filter(d => !d.highlight).length;
+            const svgHeight = numPeriods * 12; // Adjust multiplier as needed
+
+            data.forEach(d => {
+                d.start = new Date(d.start);
+                d.end = new Date(d.end);
+            });
+
+            const svg = container.append("svg")
+                .attr("width", 1440)
+                .attr("height", svgHeight);
+            const margin = { top: 30, right: 50, bottom: 60, left: 50 };
+            const width = +svg.attr("width") - margin.left - margin.right;
+            const height = +svg.attr("height") - margin.top - margin.bottom;
+
+            const x = d3.scaleTime()
+                .domain([d3.min(data, d => d.start), d3.max(data, d => d.end)])
+                .range([0, width]);
+
+            const y = d3.scaleBand()
+                .domain(data.filter(d => !d.highlight).map(d => d.name))
+                .range([0, height])
+                .padding(0.2);
+
+            const xAxis = d3.axisBottom(x).ticks(d3.timeMonth.every(1)).tickFormat(d3.timeFormat("%Y-%m-%d"));
+            const yAxis = d3.axisLeft(y);
+
+            const g = svg.append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            g.append("g")
+                .attr("class", "x axis")
+                .attr("transform", `translate(0,${height})`)
+                .call(xAxis)
+                .selectAll("text")
+                .attr("transform", "rotate(-45)")
+                .style("text-anchor", "end");
+
+            g.append("g")
+                .attr("class", "y axis")
+                .call(yAxis);
+
+            const tooltip = d3.select(".tooltip");
+
+            // Draw highlight rectangles
+            g.selectAll(".highlight")
+                .data(data.filter(d => d.highlight))
+                .enter().append("rect")
+                .attr("class", "highlight")
+                .attr("x", d => x(d.start))
+                .attr("width", d => x(d.end) - x(d.start))
+                .attr("y", 0)
+                .attr("height", height)
+                .style("fill", d => d.highlightColor);
+
+            // Draw periods
+            g.selectAll(".period")
+                .data(data.filter(d => !d.highlight))
+                .enter().append("line")
+                .attr("class", "period")
+                .attr("x1", d => x(d.start))
+                .attr("x2", d => x(d.end))
+                .attr("y1", d => y(d.name) + y.bandwidth() / 2)
+                .attr("y2", d => y(d.name) + y.bandwidth() / 2)
+                .on("mouseover", function(event, d) {
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html(`Name: ${d.name}<br/>Start: ${d.start.toLocaleString()}<br/>End: ${d.end.toLocaleString()}`)
+                        .style("left", (event.pageX + 5) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", function(d) {
+                    tooltip.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
+
+            g.selectAll(".period-text")
+                .data(data.filter(d => !d.highlight))
+                .enter().append("text")
+                .attr("class", "period-text")
+                .attr("x", d => (x(d.start) + x(d.end)) / 2)
+                .attr("y", d => y(d.name) + y.bandwidth() / 2 - 10)
+                .attr("dy", ".35em")
+                .text(d => d.name);
+
+            // // Add highlight labels
+            // const highlightHeight = height + 20;
+            // const highlightData = data.filter(d => d.highlight);
+
+            // highlightData.forEach((d, i) => {
+            //     g.append("text")
+            //         .attr("class", "highlight-label")
+            //         .attr("x", (x(d.start) + x(d.end)) / 2)
+            //         .attr("y", highlightHeight + i * 20 + 20)  // Adjust y position to avoid overlap
+            //         .attr("dy", ".35em")
+            //         .text(d.name)
+            //         .style("fill", d.highlightColor);
+            // });
+            // g.selectAll(".highlight-label")
+            //     .data(data.filter(d => d.highlight))
+            //     .enter().append("text")
+            //     .attr("class", "highlight-label")
+            //     .attr("x", d => (x(d.start) + x(d.end)) / 2)
+            //     .attr("y", highlightHeight - i * 20)
+            //     .attr("dy", ".35em")
+            //     .text(d => d.name)
+            //     .style("fill", d => d.highlightColor);
+        }
+
+        Promise.all([
+            d3.json('acme_30_days.json'),
+            d3.json('aws_30_days.json'),
+            d3.json('google_30_days.json'),
+            d3.json('github_30_days.json'),
+            d3.json('datadog_30_days.json'),
+            d3.json('acme_120_days.json'),
+            d3.json('aws_120_days.json'),
+            d3.json('google_120_days.json'),
+            d3.json('github_120_days.json'),
+            d3.json('datadog_120_days.json'),
+        ]).then(([data1, data2, data3, data4, data5, data6, data7, data8, data9, data10]) => {
+            drawTimeline(data1, 'diagram1');
+            drawTimeline(data2, 'diagram2');
+            drawTimeline(data3, 'diagram3');
+            drawTimeline(data4, 'diagram4');
+            drawTimeline(data5, 'diagram5');
+            drawTimeline(data6, 'diagram6');
+            drawTimeline(data7, 'diagram7');
+            drawTimeline(data8, 'diagram8');
+            drawTimeline(data9, 'diagram9');
+            drawTimeline(data10, 'diagram10');
+        }).catch(error => {
+            console.error('Error loading or parsing data:', error);
+        });
+    </script>
+</body>
+</html>
